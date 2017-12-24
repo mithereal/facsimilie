@@ -4,7 +4,7 @@
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+If [available in Hex](https://hex.pm/packages/facsimilie), the package can be installed
 by adding `facsimilie` to your list of dependencies in `mix.exs`:
 
 ```elixir
