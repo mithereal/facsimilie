@@ -1,15 +1,15 @@
-defmodule Facsimilie.Sync.Server do
+defmodule Facsimilie.Mail.Server do
   require Logger
 
   use GenServer
 
 
   @moduledoc """
-  A genserver to represent a sync servers task.
+  A genserver to represent a mail server.
   """
 
   @name __MODULE__
-  @registry_name :sync_server_registry
+  @registry_name :mail_server_registry
 
   ## Server API
 
@@ -23,7 +23,7 @@ defmodule Facsimilie.Sync.Server do
 
   end
 
-  @doc "Get the id of the sync server from the registry"
+  @doc "Get the id of the mail server from the registry"
   defp via_tuple(id) do
 
     {:via, Registry, {@registry_name, id}}
