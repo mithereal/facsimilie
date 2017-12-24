@@ -9,16 +9,30 @@ defmodule Facsimilie.Sync.Server do
   """
 
   @name __MODULE__
+  @registry_name :sync_server_registry
 
   ## Server API
 
-  def start_link(name) do
-    GenServer.start_link(__MODULE__, [], name: name)
+
+  @doc "Start the server"
+  def start_link(id) do
+
+    name = via_tuple(id)
+
+    GenServer.start_link(__MODULE__, [id], name: name)
+
   end
+
+  @doc "Get the id of the quote from the registry"
+  defp via_tuple(id) do
+
+    {:via, Registry, {@registry_name, id}}
+  end
+
 
   def init(_) do
 
-    {:ok, %__MODULE__{}}
+    {:ok, nil}
   end
 
 end

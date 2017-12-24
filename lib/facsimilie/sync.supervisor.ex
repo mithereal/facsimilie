@@ -30,7 +30,7 @@ defmodule Facsimilie.Sync.Supervisor do
     if process_exists?(x) do
       {:ok, x}
     else
-      x |> start_quote
+      x |> start
     end
   end
 
