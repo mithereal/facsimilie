@@ -1,21 +1,20 @@
-defmodule Facsimilie.Mail.Server do
+defmodule Facsimilie.Job.Server do
   require Logger
 
   use GenServer
 
 
   @moduledoc """
-  A genserver to represent a mail server.
+  A genserver to represent a job server.
   """
 
   @name __MODULE__
-  @registry_name :mail_server_registry
-
+  @registry_name :job_server_registry
 
   #a  struct to manage the state for this genserver
   defstruct id: nil,
-  settings: nil,
-  headers: []
+            settings: nil,
+            servers: []
 
   ## Server API
 
@@ -29,7 +28,7 @@ defmodule Facsimilie.Mail.Server do
 
   end
 
-  @doc "Get the id of the mail server from the registry"
+  @doc "Get the id of the job server from the registry"
   defp via_tuple(id) do
 
     {:via, Registry, {@registry_name, id}}
