@@ -20,7 +20,6 @@ defmodule Facsimilie.Sync.Server do
     name = via_tuple(id)
 
     GenServer.start_link(__MODULE__, [id], name: name)
-
   end
 
   @doc "Get the id of the sync server from the registry"

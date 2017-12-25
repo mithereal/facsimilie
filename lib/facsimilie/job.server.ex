@@ -60,6 +60,7 @@ defmodule Facsimilie.Job.Server do
     Facsimilie.Mail.Server.configure(server, server_config)
 
     servers = servers ++ [server]
+
     updated_state =  %__MODULE__{ state |  servers: servers }
 
     {:reply, updated_state, updated_state}
@@ -70,6 +71,7 @@ defmodule Facsimilie.Job.Server do
     Facsimilie.Mail.Supervisor.kill(mail_server_id)
 
     servers = List.delete(servers, mail_server_id)
+
     updated_state =  %__MODULE__{ state |  servers: servers }
 
     {:reply, updated_state, updated_state}

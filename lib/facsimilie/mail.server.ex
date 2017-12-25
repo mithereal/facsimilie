@@ -26,7 +26,6 @@ defmodule Facsimilie.Mail.Server do
     name = via_tuple(id)
 
     GenServer.start_link(__MODULE__, [id], name: name)
-
   end
 
   @doc "Get the id of the mail server from the registry"
@@ -35,28 +34,35 @@ defmodule Facsimilie.Mail.Server do
     {:via, Registry, {@registry_name, id}}
   end
 
-
   def init(_) do
 
     {:ok, nil}
   end
 
   @doc "set up the mailserver settings, host, username, etc"
-  def configure(x)do
+  def configure(config)do
 
-    GenServer.call(via_tuple(id), {:add, config })
+    GenServer.call(via_tuple(id), {:configure, config })
   end
 
   @doc "fetch the headers from the mail server"
-  def fetch_headers(x)do
+  def fetch_headers()do
 
     GenServer.call(via_tuple(id), {:fetch_headers})
   end
 
   @doc "clear all the recieved headers"
-  def clear_headers(x)do
+  def clear_headers()do
 
     GenServer.call(via_tuple(id), {:clear_headers})
+  end
+
+
+  def handle_call({:configure, config}, _from, %__MODULE__{settings: settings } = state) do
+
+    updated_state =  %__MODULE__{ state |  settings: settings }
+
+    {:reply, updated_state, updated_state}
   end
 
   def handle_call({:clear_headers}, _from, %__MODULE__{headers: headers } = state) do
@@ -68,8 +74,9 @@ defmodule Facsimilie.Mail.Server do
 
   def handle_call({:fetch_headers}, _from, %__MODULE__{headers: headers } = state) do
 
-    fetched = []
-    updated_state =  %__MODULE__{ state |  headers: [] }
+    fetched_headers = []
+
+    updated_state =  %__MODULE__{ state |  headers: fetched_headers }
 
     {:reply, updated_state, updated_state}
   end
