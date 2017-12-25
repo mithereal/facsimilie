@@ -10,7 +10,7 @@ by adding `facsimilie` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:facsimilie, "~> 0.1.0"}
+    {:facsimilie, "~> 0.1.1"}
   ]
 end
 ```
