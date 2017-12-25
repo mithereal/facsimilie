@@ -41,4 +41,37 @@ defmodule Facsimilie.Mail.Server do
     {:ok, nil}
   end
 
+  @doc "set up the mailserver settings, host, username, etc"
+  def configure(x)do
+
+    GenServer.call(via_tuple(id), {:add, config })
+  end
+
+  @doc "fetch the headers from the mail server"
+  def fetch_headers(x)do
+
+    GenServer.call(via_tuple(id), {:fetch_headers})
+  end
+
+  @doc "clear all the recieved headers"
+  def clear_headers(x)do
+
+    GenServer.call(via_tuple(id), {:clear_headers})
+  end
+
+  def handle_call({:clear_headers}, _from, %__MODULE__{headers: headers } = state) do
+
+    updated_state =  %__MODULE__{ state |  headers: [] }
+
+    {:reply, updated_state, updated_state}
+  end
+
+  def handle_call({:fetch_headers}, _from, %__MODULE__{headers: headers } = state) do
+
+    fetched = []
+    updated_state =  %__MODULE__{ state |  headers: [] }
+
+    {:reply, updated_state, updated_state}
+  end
+
 end

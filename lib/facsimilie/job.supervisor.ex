@@ -8,8 +8,11 @@ defmodule Facsimilie.Job.Supervisor do
     Supervisor.start_link(__MODULE__, nil, name: __MODULE__)
   end
 
-  def start(x) do
+  def start() do
+    x = Integer.to_string(:rand.uniform(4294967296), 32)
     Supervisor.start_child(__MODULE__, [ x ])
+
+    {:ok,x}
   end
 
   def stop(x) do
